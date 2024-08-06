@@ -6,9 +6,15 @@ import { moneyFormatter } from "../utils/utils";
 export const Balance = () => {
   const { transactions } = useContext(GlobalContext);
 
-  const amounts = transactions.map((transaction) => transaction.amount);
+  // Convert amounts to numbers, calculate total balance
+  const total = transactions
+    .map((transaction) => Number(transaction.amount)) // Convert to numbers if needed
+    .reduce((acc, item) => acc + item, 0) // Accumulate total balance
+    .toFixed(2); // Format to 2 decimal places
 
-  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+  // Optional: Debugging output
+  console.log("Transactions:", transactions);
+  console.log("Total:", total);
 
   return (
     <>
